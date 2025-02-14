@@ -23,7 +23,7 @@ jobs:
       - name: Build Archive with xcodebuild
         run: |
           mkdir -p build
-          xcodebuild -scheme packagegen -configuration Release -archivePath ./build/packagegen.xcarchive archive
+          xcodebuild -destination "generic/platform=macOS" -scheme packagegen -configuration Release -archivePath ./build/packagegen.xcarchive archive
 
       - name: Extract Binary
         run: |
