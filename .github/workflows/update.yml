@@ -15,7 +15,7 @@ jobs:
 
       - name: Bump Version & Push Tag
         id: tag
-        uses: anothrNick/github-tag-action@v1.71.1
+        uses: anothrNick/github-tag-action@v1.71.0
         with:
           default_bump: minor
         env:
