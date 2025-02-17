@@ -25,6 +25,9 @@ struct PackageGen: ParsableCommand {
     @Argument(help: "The name of the package")
     var packageName: String
 
+    @Flag(name: [.customLong("c"), .customShort("c")], help: "include rust and c")
+    var includeRustAndC: Bool = false
+
     /**
      The main entry point of the command.
 
@@ -56,7 +59,13 @@ struct PackageGen: ParsableCommand {
         print("Temporary directory created at \(tempDir.path)")
 
         // Download the template ZIP from GitHub.
-        let templateZipURL = URL(string: "https://github.com/yukiny0811/SwiftPackageTemplate/archive/refs/heads/main.zip")!
+        let templateZipURL: URL = {
+            if includeRustAndC {
+                return URL(string: "https://github.com/yukiny0811/SwiftPackageTemplate/archive/refs/heads/main.zip")!
+            } else {
+                return URL(string: "https://github.com/yukiny0811/SwiftPackageTemplateOnlySwift/archive/refs/heads/main.zip")!
+            }
+        }()
         let zipFileURL = tempDir.appendingPathComponent("template.zip")
         try downloadZipUsingCurl(from: templateZipURL.absoluteString, to: zipFileURL)
 
